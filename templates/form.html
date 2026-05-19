@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Encrypt</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:#020617;
+            overflow:hidden;
+            position:relative;
+        }
+
+        body::before{
+            content:'';
+            position:absolute;
+            width:600px;
+            height:600px;
+            background:#00f5ff;
+            border-radius:50%;
+            filter:blur(180px);
+            top:-250px;
+            left:-200px;
+            opacity:0.4;
+        }
+
+        body::after{
+            content:'';
+            position:absolute;
+            width:600px;
+            height:600px;
+            background:#9333ea;
+            border-radius:50%;
+            filter:blur(180px);
+            bottom:-250px;
+            right:-200px;
+            opacity:0.4;
+        }
+
+        .container{
+            position:relative;
+            width:420px;
+            padding:35px;
+            border-radius:25px;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter:blur(25px);
+            border:1px solid rgba(255,255,255,0.15);
+            z-index:10;
+            color:white;
+            animation:show 1s ease;
+        }
+
+        @keyframes show{
+            from{
+                opacity:0;
+                transform:translateY(30px);
+            }
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+            font-size:34px;
+        }
+
+        .inputBox{
+            margin-bottom:20px;
+        }
+
+        .inputBox label{
+            display:block;
+            margin-bottom:10px;
+            font-size:14px;
+        }
+
+        .inputBox input{
+            width:100%;
+            padding:15px;
+            border:none;
+            outline:none;
+            border-radius:15px;
+            background:rgba(255,255,255,0.08);
+            color:white;
+            border:1px solid rgba(255,255,255,0.1);
+            transition:0.3s;
+        }
+
+        .inputBox input:focus{
+            border:1px solid #00f5ff;
+            box-shadow:0 0 15px rgba(0,245,255,0.4);
+        }
+
+        button{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:15px;
+            background:linear-gradient(135deg,#00f5ff,#8b5cf6);
+            color:white;
+            font-size:16px;
+            font-weight:600;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        button:hover{
+            transform:translateY(-3px);
+            box-shadow:0 10px 25px rgba(139,92,246,0.5);
+        }
+
+        .history-btn{
+            display:block;
+            text-align:center;
+            margin-top:15px;
+            padding:14px;
+            border-radius:15px;
+            text-decoration:none;
+            color:white;
+            background:rgba(255,255,255,0.08);
+            border:1px solid rgba(255,255,255,0.1);
+            transition:0.3s;
+        }
+
+        .history-btn:hover{
+            background:rgba(255,255,255,0.15);
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Cyber Encrypt</h1>
+
+        <form method="POST">
+
+            <div class="inputBox">
+                <label>Nama Depan</label>
+                <input type="text" name="namaDepan" required>
+            </div>
+
+            <div class="inputBox">
+                <label>Nama Belakang</label>
+                <input type="text" name="namaBelakang" required>
+            </div>
+
+            <button type="submit">
+                Encrypt Now
+            </button>
+
+            <a href="/history" class="history-btn">
+                View History
+            </a>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

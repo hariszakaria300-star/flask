@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encrypted Result</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:#020617;
+            padding:30px;
+            overflow:hidden;
+            position:relative;
+        }
+
+        body::before{
+            content:'';
+            position:absolute;
+            width:600px;
+            height:600px;
+            background:#00f5ff;
+            border-radius:50%;
+            filter:blur(180px);
+            top:-250px;
+            left:-200px;
+            opacity:0.4;
+        }
+
+        body::after{
+            content:'';
+            position:absolute;
+            width:600px;
+            height:600px;
+            background:#9333ea;
+            border-radius:50%;
+            filter:blur(180px);
+            bottom:-250px;
+            right:-200px;
+            opacity:0.4;
+        }
+
+        .container{
+            position:relative;
+            width:500px;
+            padding:45px;
+            border-radius:25px;
+            background:rgba(255,255,255,0.08);
+            backdrop-filter:blur(25px);
+            border:1px solid rgba(255,255,255,0.15);
+            text-align:center;
+            color:white;
+            z-index:10;
+        }
+
+        h1{
+            font-size:35px;
+            margin-bottom:25px;
+        }
+
+        .hasil{
+            padding:20px;
+            border-radius:18px;
+            background:rgba(255,255,255,0.08);
+            border:1px solid rgba(255,255,255,0.1);
+            font-size:24px;
+            word-wrap:break-word;
+            margin-bottom:30px;
+            color:#00f5ff;
+            box-shadow:0 0 25px rgba(0,245,255,0.3);
+        }
+
+        a{
+            display:inline-block;
+            padding:14px 28px;
+            border-radius:14px;
+            text-decoration:none;
+            color:white;
+            font-weight:600;
+            background:linear-gradient(135deg,#00f5ff,#8b5cf6);
+            transition:0.3s;
+        }
+
+        a:hover{
+            transform:translateY(-3px);
+            box-shadow:0 10px 25px rgba(139,92,246,0.5);
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Encrypted Result</h1>
+
+        <div class="hasil">
+            {{ nama }}
+        </div>
+
+        <a href="/">Back</a>
+
+    </div>
+
+</body>
+</html>
