@@ -1,79 +1,116 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap");
-      body {
-        font-family: "Outfit", sans-serif;
-      }
-    </style>
-  </head>
-  <body
-    class="bg-[#0a0a0a] text-white flex items-center justify-center min-h-screen p-4"
-  >
-    <div
-      class="w-full max-w-sm bg-[#111] border border-zinc-800 p-8 rounded-[2rem] shadow-2xl"
-    >
-      <h2 class="text-2xl font-bold text-green-500 mb-6 text-center">
-        Pemesanan Berhasil!
-      </h2>
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-      <div
-        class="bg-[#1a1a1a] p-5 rounded-2xl border border-zinc-800 text-sm space-y-3 mb-6"
-      >
-        <div class="flex justify-between border-b border-zinc-800 pb-2">
-          <span class="text-zinc-500">Nama:</span>
-          <span class="font-semibold">{{ pesanan.nama }}</span>
-        </div>
-        <div class="flex justify-between border-b border-zinc-800 pb-2">
-          <span class="text-zinc-500">Email:</span>
-          <span class="font-semibold">{{ pesanan.email }}</span>
-        </div>
-        <div class="flex justify-between border-b border-zinc-800 pb-2">
-          <span class="text-zinc-500">Jenis Tiket:</span>
-          <span class="font-semibold text-yellow-500"
-            >{{ pesanan.jenis_tiket }}</span
-          >
-        </div>
-        <div class="flex justify-between border-b border-zinc-800 pb-2">
-          <span class="text-zinc-500">Jumlah:</span>
-          <span class="font-semibold">{{ pesanan.jumlah }} tiket</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-zinc-500">Total Bayar:</span>
-          <span class="font-semibold text-yellow-500">
-            {% if pesanan.jenis_tiket == 'VIP' %}Rp 4.000.000{% else %}Rp
-            3.000.000{% endif %}
-          </span>
-        </div>
-      </div>
+<body class="bg-black flex items-center justify-center min-h-screen p-6 text-white">
 
-      <div class="text-center">
-        <p class="text-zinc-400 text-xs mb-4">QR Code Tiket</p>
-        <div class="bg-white p-3 rounded-2xl inline-block mb-4">
-          <img src="data:image/png;base64,{{ pesanan.qr }}" class="w-40 h-40" />
-        </div>
-        <p class="text-zinc-500 text-[11px] mb-6">
-          Simpan QR Code ini dan tunjukkan saat masuk acara.
+  <!-- KARTU TIKET -->
+  <div class="w-full max-w-lg">
+
+    <div class="bg-gradient-to-br from-zinc-900 to-black border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl">
+
+      <!-- HEADER -->
+      <div class="p-6 border-b border-zinc-800">
+
+        <p class="text-xs text-zinc-400 tracking-widest">
+          TIKET DIGITAL • PAMERAN SENI 2026
         </p>
+
+        <h1 class="text-2xl font-bold mt-2">
+          Art Exhibition 2026
+        </h1>
+
+        <p class="text-zinc-400 text-sm mt-1">
+          Sistem Tiket Terenkripsi (Keamanan Fernet)
+        </p>
+
       </div>
 
-      <div class="space-y-3">
-        <a
-          href="data:image/png;base64,{{ pesanan.qr }}"
-          download="QR_Tiket_{{ pesanan.nama }}.png"
-          class="block w-full py-3 bg-yellow-600 text-black font-bold rounded-xl hover:bg-yellow-500 transition-all text-center"
-        >
-          Download QR Code
-        </a>
-        <a
-          href="/"
-          class="block w-full py-3 border border-zinc-700 text-zinc-400 font-semibold rounded-xl hover:bg-zinc-800 transition-all text-center"
-        >
+      <!-- DATA PENUMPANG -->
+      <div class="p-6 grid grid-cols-2 gap-4 text-sm">
+
+        <div>
+          <p class="text-zinc-500 text-xs">Nama</p>
+          <p class="font-semibold">{{ pesanan.nama }}</p>
+        </div>
+
+        <div>
+          <p class="text-zinc-500 text-xs">Email</p>
+          <p class="font-semibold">{{ pesanan.email }}</p>
+        </div>
+
+        <div>
+          <p class="text-zinc-500 text-xs">Tanggal Kunjungan</p>
+          <p class="font-semibold">{{ pesanan.tanggal_kunjungan }}</p>
+        </div>
+
+        <div>
+          <p class="text-zinc-500 text-xs">Jenis Tiket</p>
+          <p class="font-semibold text-yellow-400">{{ pesanan.jenis_tiket }}</p>
+        </div>
+
+        <div>
+          <p class="text-zinc-500 text-xs">Jumlah Tiket</p>
+          <p class="font-semibold">{{ pesanan.jumlah }}</p>
+        </div>
+
+        <div>
+          <p class="text-zinc-500 text-xs">Total Pembayaran</p>
+          <p class="font-semibold text-green-400">
+            Rp {{ "{:,.0f}".format(pesanan.total_bayar).replace(",", ".") }}
+          </p>
+        </div>
+
+      </div>
+
+      <!-- PEMISAH TIKET -->
+      <div class="flex items-center justify-between px-6">
+
+        <div class="w-4 h-4 bg-black rounded-full -ml-8"></div>
+
+        <div class="border-t border-dashed border-zinc-700 flex-1"></div>
+
+        <div class="w-4 h-4 bg-black rounded-full -mr-8"></div>
+
+      </div>
+
+      <!-- QR CODE -->
+      <div class="p-6 text-center">
+
+        <div class="bg-white inline-block p-3 rounded-2xl shadow-lg">
+
+          <img
+            src="data:image/png;base64,{{ pesanan.qr }}"
+            class="w-44 h-44"
+          />
+
+        </div>
+
+        <p class="text-zinc-500 text-xs mt-3">
+          Pindai QR Code ini saat masuk ke acara
+        </p>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="p-6 border-t border-zinc-800 text-center">
+
+        <p class="text-xs text-zinc-500">
+          Tiket Aman • Didukung oleh Enkripsi Fernet
+        </p>
+
+        <a href="/"
+          class="inline-block mt-4 bg-white text-black font-semibold px-6 py-2 rounded-xl hover:bg-zinc-200 transition">
           Kembali ke Beranda
         </a>
+
       </div>
+
     </div>
-  </body>
+
+  </div>
+
+</body>
 </html>

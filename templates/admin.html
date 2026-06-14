@@ -1,58 +1,72 @@
 <!doctype html>
 <html lang="id">
-  <head>
+<head>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap");
-      body {
-        font-family: "Outfit", sans-serif;
-      }
-    </style>
-  </head>
-  <body class="bg-[#0a0a0a] text-white p-8">
-    <div class="max-w-6xl mx-auto">
-      <h1 class="text-3xl font-bold text-yellow-500 mb-8">Dashboard Admin</h1>
+</head>
 
-      <div
-        class="bg-[#111] border border-zinc-800 rounded-2xl overflow-hidden shadow-xl"
-      >
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
-            <thead
-              class="bg-zinc-900 text-zinc-400 text-sm uppercase tracking-wider"
-            >
-              <tr>
-                <th class="p-6">No</th>
-                <th class="p-6">Nama</th>
-                <th class="p-6">Email</th>
-                <th class="p-6">Tanggal</th>
-                <th class="p-6">Tiket</th>
-                <th class="p-6">Jumlah</th>
-              </tr>
+<body class="bg-[#0a0a0a] text-white p-8">
+
+<div class="max-w-6xl mx-auto">
+
+    <h1 class="text-3xl font-bold text-yellow-500 mb-8">
+        Dashboard Admin
+    </h1>
+
+    <div class="overflow-x-auto bg-[#111] border border-zinc-800 rounded-2xl">
+
+        <table class="w-full text-left text-sm">
+
+            <thead class="bg-zinc-900 text-zinc-400">
+                <tr>
+                    <th class="p-4">No</th>
+                    <th class="p-4">Nama</th>
+                    <th class="p-4">Email</th>
+                    <th class="p-4">Tanggal</th>
+                    <th class="p-4">Tiket</th>
+                    <th class="p-4">Jumlah</th>
+                    <th class="p-4">Total</th>
+                </tr>
             </thead>
-            <tbody class="divide-y divide-zinc-800">
-              {% for i, p in enumerate(pesanan) %}
-              <tr class="hover:bg-zinc-900 transition-colors">
-                <td class="p-6">{{ i + 1 }}</td>
-                <td class="p-6 font-semibold">{{ p.nama }}</td>
-                <td class="p-6 text-zinc-400">{{ p.email }}</td>
-                <td class="p-6">{{ p.tanggal_kunjungan }}</td>
-                <td class="p-6 text-yellow-500">{{ p.jenis_tiket }}</td>
-                <td class="p-6">{{ p.jumlah }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
 
-      <div class="mt-8">
-        <a
-          href="/"
-          class="text-zinc-500 hover:text-white transition-all underline"
-          >← Kembali ke Form Reservasi</a
-        >
-      </div>
+            <tbody>
+
+                {% for p in pesanan %}
+
+                <tr class="border-t border-zinc-800 hover:bg-zinc-900">
+
+                    <td class="p-4">{{ loop.index }}</td>
+
+                    <td class="p-4 font-semibold">{{ p.nama }}</td>
+
+                    <td class="p-4 text-zinc-400">{{ p.email }}</td>
+
+                    <td class="p-4">{{ p.tanggal_kunjungan }}</td>
+
+                    <td class="p-4 text-yellow-500">{{ p.jenis_tiket }}</td>
+
+                    <td class="p-4">{{ p.jumlah }}</td>
+
+                    <td class="p-4 text-green-400">
+                        Rp {{ "{:,.0f}".format(p.total_bayar).replace(",", ".") }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
     </div>
-  </body>
+
+    <div class="mt-6">
+        <a href="/" class="text-zinc-400 hover:text-white underline">
+            ← Kembali ke Form
+        </a>
+    </div>
+
+</div>
+
+</body>
 </html>
