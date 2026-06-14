@@ -1,12 +1,17 @@
 from flask import Flask, render_template, request
-from cryptography.fernet import Fernet
 import qrcode
-import io
 import base64
+from io import BytesIO
+from datetime import datetime
 
 app = Flask(__name__)
-cipher = Fernet(Fernet.generate_key())
 data_pesanan = []
+
+def generate_qr(data):
+    qr = qrcode.make(data)
+    buffered = BytesIO()
+    qr.save(buffered, format="PNG")
+    return base64.b64encode(buffered.getvalue()).decode('utf-8')
 
 @app.route('/')
 def index():
@@ -16,28 +21,25 @@ def index():
 def pesan():
     nama = request.form.get('nama')
     email = request.form.get('email')
-    jenis_tiket = request.form.get('jenis_tiket')
-    jumlah = int(request.form.get('jumlah', 1))
+    tanggal = request.form.get('tanggal_kunjungan')
+    jenis = request.form.get('jenis_tiket')
+    jumlah = request.form.get('jumlah')
     
-    harga_per_tiket = 3000000 if jenis_tiket == "Regular" else 4000000
-    total = jumlah * harga_per_tiket
+    # Data untuk QR (ini yang akan dibaca scanner nantinya)
+    isi_qr = f"Tiket: {nama} | {tanggal} | {jenis} | {jumlah} tiket"
+    qr_img = generate_qr(isi_qr)
     
-    data_pesanan.append({"nama": nama, "email": email, "tiket": jenis_tiket, "jumlah": jumlah, "total": total})
+    tiket = {
+        'nama': nama, 'email': email, 'tanggal_kunjungan': tanggal,
+        'jenis_tiket': jenis, 'jumlah': jumlah, 'qr': qr_img
+    }
     
-    data_qr = f"USER:{nama}|TYPE:{jenis_tiket}|TOTAL:{total}"
-    token = cipher.encrypt(data_qr.encode())
-    
-    qr = qrcode.make(token.decode())
-    buf = io.BytesIO()
-    qr.save(buf, format='PNG')
-    qr_base64 = base64.b64encode(buf.getvalue()).decode('utf-8')
-    
-    return render_template('tiket.html', nama=nama, email=email, jumlah=jumlah, 
-                           jenis_tiket=jenis_tiket, total=total, harga=harga_per_tiket, qr=qr_base64)
+    data_pesanan.append(tiket)
+    return render_template('tiket.html', pesanan=tiket)
 
 @app.route('/admin')
 def admin():
-    return render_template('admin.html', pesanan=data_pesanan)
+    return render_template('admin.html', pesanan=data_pesanan, enumerate=enumerate)
 
 if __name__ == '__main__':
     app.run(debug=True)
