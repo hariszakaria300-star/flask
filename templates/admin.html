@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap");
+      body {
+        font-family: "Outfit", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-[#0a0a0a] text-white p-10">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-4xl font-bold mb-8 text-yellow-500">Admin Dashboard</h1>
+
+      <div class="bg-[#111] border border-zinc-800 rounded-[2rem] p-8">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="text-zinc-500 border-b border-zinc-800">
+              <th class="p-4">Nama</th>
+              <th class="p-4">Email</th>
+              <th class="p-4">Tiket</th>
+              <th class="p-4">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in pesanan %}
+            <tr class="border-b border-zinc-800 hover:bg-[#1a1a1a]">
+              <td class="p-4">{{ p.nama }}</td>
+              <td class="p-4 text-zinc-400">{{ p.email }}</td>
+              <td class="p-4">{{ p.tiket }}</td>
+              <td class="p-4 font-bold text-yellow-500">
+                Rp {{ "{:,.0f}".format(p.total) }}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <a
+        href="/"
+        class="inline-block mt-8 text-zinc-400 hover:text-white underline"
+        >Kembali ke Beranda</a
+      >
+    </div>
+  </body>
+</html>
